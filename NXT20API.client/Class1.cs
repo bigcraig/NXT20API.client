@@ -11,7 +11,7 @@ namespace MyNamespace
     [System.CodeDom.Compiler.GeneratedCode("NSwag", "12.0.12.0 (NJsonSchema v9.13.15.0 (Newtonsoft.Json v11.0.0.0))")]
     public partial class NXTClient
     {
-        private string _baseUrl = "https://10.238.131.201:8443/nxt-api/xray";
+        private string _baseUrl = "https://10.238.131.196:8443/nxt-api/xray";
         private System.Lazy<Newtonsoft.Json.JsonSerializerSettings> _settings;
 
         public NXTClient()

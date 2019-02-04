@@ -1,5 +1,6 @@
 ﻿using MyNamespace;
 using System;
+using System.Net;
 
 namespace NxtClientConsole
 {
@@ -8,6 +9,8 @@ namespace NxtClientConsole
         public static async void callMethod()
         {
             var client = new NXTClient();
+            ServicePointManager.ServerCertificateValidationCallback += (sender, cert, chain, sslPolicyErrors) => true;
+
             var uuid = await client.GetTransactionIdAsync("");
             Console.WriteLine("uuid");
         }

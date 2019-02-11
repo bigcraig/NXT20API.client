@@ -4,6 +4,9 @@
 // </auto-generated>
 //----------------------
 
+using System.Net;
+using System.Net.Http;
+
 namespace MyNamespace
 {
 #pragma warning disable
@@ -734,8 +737,11 @@ namespace MyNamespace
                 urlBuilder_.Append("locateIfUnknown=").Append(System.Uri.EscapeDataString(ConvertToString(locateIfUnknown, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
             }
             urlBuilder_.Length--;
-
-            var client_ = new System.Net.Http.HttpClient();
+            var httpClientHandler = new HttpClientHandler();
+            httpClientHandler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => { return true; };
+            httpClientHandler.Credentials = new NetworkCredential("admin", "admin");
+            var client_ = new System.Net.Http.HttpClient(httpClientHandler);
+            
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -769,7 +775,7 @@ namespace MyNamespace
                             var result_ = default(OndemandResponseWrapper);
                             try
                             {
-                                result_ = Newtonsoft.Json.JsonConvert.DeserializeObject<OndemandResponseWrapper>(responseData_, _settings.Value);
+                                result_ = <OndemandResponseWrapper>(responseData_, _settings.Value);
                                 return result_;
                             }
                             catch (System.Exception exception_)
@@ -1152,7 +1158,8 @@ namespace MyNamespace
         /// <param name="x_ARRS_SA_Transaction_ID">Optional transactionId to identify the request</param>
         /// <returns>successful operation</returns>
         /// <exception cref="SwaggerException">A server side error occurred.</exception>
-        public System.Threading.Tasks.Task<System.Guid> GetTransactionIdAsync(string x_ARRS_SA_Transaction_ID)
+          public System.Threading.Tasks.Task<System.Guid> GetTransactionIdAsync(string x_ARRS_SA_Transaction_ID)
+        
         {
             return GetTransactionIdAsync(x_ARRS_SA_Transaction_ID, System.Threading.CancellationToken.None);
         }
@@ -1166,8 +1173,11 @@ namespace MyNamespace
         {
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1.1/topologyMerge/topologyStart");
-
-            var client_ = new System.Net.Http.HttpClient();
+            var httpClientHandler = new HttpClientHandler();
+            httpClientHandler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => { return true; };
+            httpClientHandler.Credentials= new NetworkCredential("admin","admin");
+            var client_ = new System.Net.Http.HttpClient(httpClientHandler);
+            
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -1182,6 +1192,7 @@ namespace MyNamespace
                     var url_ = urlBuilder_.ToString();
                     request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
                     PrepareRequest(client_, request_, url_);
+                    //ServicePointManager.ServerCertificateValidationCallback += (sender, cert, chain, sslPolicyErrors) => true;
 
                     var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
                     try
@@ -2035,7 +2046,7 @@ namespace MyNamespace
         [Newtonsoft.Json.JsonProperty("error", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public bool? Error { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("status", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+     /*cw*/   [Newtonsoft.Json.JsonProperty("status", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         [Newtonsoft.Json.JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
         public ParamValueStatus? Status { get; set; }
 

@@ -770,12 +770,12 @@ namespace MyNamespace
 
                         var status_ = ((int)response_.StatusCode).ToString();
                         if (status_ == "200")
-                        {
-                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                        { 
+                            var  responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
                             var result_ = default(OndemandResponseWrapper);
                             try
                             {
-                                result_ = <OndemandResponseWrapper>(responseData_, _settings.Value);
+                                result_ = Newtonsoft.Json.JsonConvert.DeserializeObject<OndemandResponseWrapper> (responseData_, _settings.Value);
                                 return result_;
                             }
                             catch (System.Exception exception_)
